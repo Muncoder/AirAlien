@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :confirmable, :omniauthable
 
   has_many :rooms
+  has_many :reservations
 
   def self.from_omniauth(auth)
   	user = User.where(email: auth.info.email).first
@@ -21,8 +22,6 @@ class User < ActiveRecord::Base
   			user.password = Devise.friendly_token[0,20]
   		end
   	end
-  end
-
-  
+  end 
 
 end
