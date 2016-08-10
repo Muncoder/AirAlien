@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-md-3">
+		<ul class="sidebar-list">
+			<li class="sidebar-item"><%= link_to "Your Listing", rooms_path, class: "sidebar-link active" %> <br></li>
+			<li class="sidebar-item"><%= link_to "Your Reservations", rooms_path, class: "sidebar-link" %> <br></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Listings</h3>
+			</div>
+			<div class="panel-body">
+				<% @rooms.each do |room| %>
+					<div class="row">
+						<div class="col-md-3">
+							<%= link_to room_path(room) do %>
+								<%= image_tag room.photos[0].image.url(:thumb) if room.photos.length > 0 %>
+							<% end %>
+							
+							<hr>
+						</div>
+						<div class="col-md-6">
+							
+						</div>
+						<div class="col-md-3">
+							<%= link_to "Update", edit_room_path(room), class: "btn btn-primary" %>
+						</div>
+
+					</div>
+				<% end %>
+					
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<%= link_to "New Room", new_room_path, class: "btn btn-primary"  %>

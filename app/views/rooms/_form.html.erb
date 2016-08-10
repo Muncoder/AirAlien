@@ -1,0 +1,136 @@
+			<%= form_for @room, :html => { multipart: true } do |f| %>
+				
+				<% if @room.errors.any? %>
+					<div class="panel panel-default">
+						<div class="panel-heading form-errors-heading">
+							Following errors dont let the room create
+						</div>
+						<div class="panel-body">
+							<ul>
+								<% @room.errors.full_messages.each do |msg| %>
+									<li><%= msg %></li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				<% end %>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div id="form-group">
+							<label for="">Home Type</label>
+							<%= f.select :home_type, [["Apartment", "Apartment"], ["House", "House"], ["Bed & Breakfast", "Bed & Breakfast"] ], prompt: "Select......", class: "form-control" %>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div id="form-group">
+							<label for="">Room Type</label>
+							<%= f.select :room_type, [["Entire", "Entire"], ["Private", "Private"], ["Shared", "Shared"] ], prompt: "Select......", class: "form-control" %>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div id="form-group">
+							<label for="">Accomodate</label>
+							<%= f.select :accomodate, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6+", 6] ], prompt: "Select......", class: "form-control" %>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div id="form-group">
+							<label for="">Bedrooms</label>
+							<%= f.select :bed_room, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6+", 6] ], prompt: "Select......", class: "form-control" %>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div id="form-group">
+							<label for="">Bathrooms</label>
+							<%= f.select :bath_room, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6+", 6] ], prompt: "Select......", class: "form-control" %>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="form-group">
+						<label for="">Listing Name</label>
+						<%= f.text_field :listing_name, placeholder: "Be clear and descriptive", class: "form-control" %>
+					</div>
+				</div>
+
+				<div class="row">
+					<div id="form-group">
+						<label for="">Summary</label>
+						<%= f.text_area :summary, placeholder: "Tell about your house", class: "form-control" %>
+					</div>
+				</div>
+
+				<div class="row">
+					<div id="form-group">
+						<label for="">Address</label>
+						<%= f.text_field :address, placeholder: "Your address", class: "form-control" %>
+					</div>
+				</div>
+<br>
+				<div class="row">
+					<div class="col-md-4">
+						<%= f.check_box :is_tv %> TV
+					</div>
+					<div class="col-md-4">
+						<%= f.check_box :is_kitchen %> Kitchen
+					</div>
+					<div class="col-md-4">
+						<%= f.check_box :is_internet %> Internet
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<%= f.check_box :is_heating %> Heating
+					</div>
+					<div class="col-md-4">
+						<%= f.check_box :is_air %> Air Conditioning
+					</div>
+				</div>
+<br>
+				<div class="row">
+					<div class="col-md-4">
+						<label for="">Nightly Price</label>
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<%= f.text_field :price, placeholder: "eg. $100", class: "form-control" %>
+						</div>
+					</div>
+				</div>
+<br>
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<span class="btn btn-default btn-file">
+							    <i class="fa fa-cloud-upload fa-lg"></i> Upload Photos 
+							    <%= file_field_tag "images[]", type: :file, multiple: true %>
+							</span>
+						</div>
+					</div>
+				</div>
+<br>
+				<div id="photos"><%= render "photos/list" %></div>
+
+				<div class="row">
+					<div class="form-group">
+						<%= f.check_box :active %> Active
+					</div>
+				</div>
+
+				<div class="actions">
+					<% if current_page?(action: 'new') %>
+						<%= f.submit "Create Room", class: "btn btn-primary"  %>
+					<% else %>
+						<%= f.submit "Update Room", class: "btn btn-info"  %>
+					<% end %>
+					
+				</div>
+
+
+			<% end %>
