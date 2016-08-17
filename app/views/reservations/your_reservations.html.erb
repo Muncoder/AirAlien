@@ -9,26 +9,30 @@
 	<div class="col-md-9">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>Listings</h3>
+				<h3>Your Reservations</h3>
 			</div>
 			<div class="panel-body">
+				
 				<% @rooms.each do |room| %>
-					<div class="row">
-						<div class="col-md-3">
-							<%= link_to room_path(room) do %>
-								<%= image_tag room.photos[0].image.url(:thumb) if room.photos.length > 0 %>
-							<% end %>
-							
-							<hr>
+					<% room.reservations.each do |reservation| %>
+						<div class="row">
+							<div class="col-md-2"><%= reservation.start_date.strftime('%w') %></div>
+							<div class="col-md-6">
+								<%= link_to room_path(reservation.room) do %>
+									<%= image_tag reservation.room.photos[0].image.url(:thumb) %>
+								<% end %>
+							</div>
+							<div class="col-md-2">
+								<%= link_to user_path(reservation.user) do %>
+									<%= image_tag avatar_url(reservation.user), class: "img-circle avatar-medium" %>
+								<% end %>
+							</div>
+							<div class="col-md-2 right">
+								<h4>$<%= reservation.total %></h4>
+							</div>
 						</div>
-						<div class="col-md-6">
-							
-						</div>
-						<div class="col-md-3">
-							<%= link_to "Update", edit_room_path(room), class: "btn btn-primary" %>
-						</div>
-
-					</div>
+						<hr>
+					<% end %>
 				<% end %>
 					
 			</div>

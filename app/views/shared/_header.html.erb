@@ -34,6 +34,13 @@
               <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><%= link_to "My Profile", edit_user_registration_path %></li>
+              <li role="separator" class="divider"></li>
+
+              <li><%= link_to "Your Listing", rooms_path %> </li>
+              <li><%= link_to "Your Reservations", your_reservations_path %> </li>
+              <li><%= link_to "Your Trips", your_trips_path %> </li>
+
+              <li role="separator" class="divider"></li>              
               <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { confirm: "Sure to sign out?"} %></li>
             </ul>
           </li>
