@@ -263,3 +263,12 @@ option {
 .text-line-through {
   text-decoration: line-through;
 }
+
+.conversation {
+  color: #7f7f7f;
+  padding: 10px;
+}
+
+.conversation:hover, conversation:focus {
+  background-color: #f4f4f5;
+}
