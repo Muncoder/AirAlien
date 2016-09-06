@@ -17,8 +17,11 @@ class MessagesController < ApplicationController
 		@messages = @conversation.messages.order("created_at DESC")
 
 		if @message.save
-			redirect_to conversation_messages_path(@conversation)
+			respond_to do |format| 
+				format.js
+			end
 		end
+
 	end
 
 	private

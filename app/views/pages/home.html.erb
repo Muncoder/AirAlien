@@ -1,4 +1,123 @@
-<h1>AirAlien</h1>
-<%= video_tag "demo.mp4", controls: false, autoplay: true, muted:
-true, loop: true, id: "bgvideobg", class: "fullscreen-bg-video", type:
-"video/webm" %>
+<%= form_tag search_path, method: :get do %>
+	<div class="row">
+		<div class="col-md-6">
+			<%= text_field_tag :search, params[:search], placeholder: "Where are you going?", class: "form-control" %>
+		</div>
+		<div class="col-md-2">
+			<%= text_field_tag :start_date, params[:start_date], placeholder: "Start Date", class: "form-control" %>
+		</div>
+		<div class="col-md-2">
+			<%= text_field_tag :end_date, params[:end_date], placeholder: "End Date", class: "form-control" %>
+		</div>
+		<div class="col-md-2">
+			<%= submit_tag "Search", class: "btn btn-primary" %>
+		</div>
+	</div>
+<% end %>
+
+<br>
+<br>
+
+<div class="text-center">
+	<h2>Just for the weekend</h2>
+	<p>Discover the new and inspiring places close to home</p>
+</div>
+
+<br>
+
+<div class="row">
+	
+	<div class="col-md-4 col-sm-12">
+		<a href="http://localhost:3000/search?utf8=%E2%9C%93&search=New+York">
+			<div class="discovery-card" style="background-image: url('/assets/New_York.jpeg')">
+				<div class="va-container">
+					<div class="va-middle text-center">
+						<h2><strong>New York</strong></h2>
+					</div>
+				</div>
+			</div>
+		</a>
+ 	</div>
+
+	<div class="col-md-4 col-sm-6">
+		<a href="http://localhost:3000/search?utf8=%E2%9C%93&search=London">
+			<div class="discovery-card" style="background-image: url('/assets/London.jpeg')">
+				<div class="va-container">
+					<div class="va-middle text-center">
+						<h2><strong>London</strong></h2>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<div class="col-md-4 col-sm-6">
+		<a href="http://localhost:3000/search?utf8=%E2%9C%93&search=Berlin">
+			<div class="discovery-card" style="background-image: url('/assets/Berlin.jpeg')">
+				<div class="va-container">
+					<div class="va-middle text-center">
+						<h2><strong>Berlin</strong></h2>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+
+</div>
+
+<br>
+<br>
+
+<div class="text-center">
+	<h2>Explore the world</h2>
+	<p>See what people are travelling all around the world</p>
+</div>
+
+<div class="row">
+	<div class="row">
+		<% @rooms.each_slice(3) do |room| %>
+
+				<div class="row">
+					<% room.each do |room| %>
+						<div class="col-md-4">
+							<div class="panel panel-default">
+								
+								<div class="panel-heading preview">
+									<%= image_tag room.photos[0].image.url(:medium) if room.photos.length > 0 %>
+								</div>
+
+								<div class="panel-body">
+									<%= image_tag avatar_url(room.user), class: "img-circle avatar-small" %> &nbsp;
+									<%= link_to room.listing_name, room %>
+								</div>
+							</div>
+						</div>
+					<% end %>
+				</div>
+
+		<% end %>
+	</div>
+</div>
+
+<script>
+	$(function() {
+		$('#start_date').datepicker({
+			dateFormat: 'dd-mm-yy',
+			minDate: 0,
+			maxDate: '3m',
+			onSelect: function(selected) {
+				$('#end_date').datepicker("option", "minDate", selected);
+				$('#end_date').attr("disabled", false);
+			}
+		});
+
+		$('#end_date').datepicker({
+			dateFormat: 'dd-mm-yy',
+			minDate: 0,
+			maxDate: '3m',
+			onSelect: function(selected) {
+				$('#start_date').datepicker("option", "maxDate", selected);
+			}
+		});
+	})
+</script>
